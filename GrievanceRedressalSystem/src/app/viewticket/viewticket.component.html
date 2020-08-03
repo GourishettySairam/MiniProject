@@ -1,0 +1,28 @@
+<br>
+<div class="container">
+  <button class="btn btn-primary w-100" (click)="getTickets()">View Tickets</button>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Title</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Category</th>
+        <th>Last Reply</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ticket.id}}</td>
+        <td>{{ticket.title}}</td>
+        <td>{{ticket.priority}}</td>
+        <td>{{ticket.status}}</td>
+        <td>{{ticket.category}}</td>
+        <td>{{ticket.assignedto}}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
