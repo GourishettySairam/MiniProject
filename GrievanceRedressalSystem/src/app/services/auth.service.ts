@@ -27,6 +27,7 @@ export class AuthService {
   isAuthenticated: Boolean = false;
   username: Subject<string> = new Subject<string>();
   authToken: string = undefined;
+  user : string = '';
 
    constructor(private http: HttpClient,
      private processHTTPMsgService: ProcessHTTPMsgService) {
@@ -37,6 +38,8 @@ export class AuthService {
      .subscribe(res => {
        console.log('JWT Token Valid: ', res);
        this.sendUsername(res.user.username);
+       this.user=res.user.username;
+       console.log('after logging in' +this.user);
      },
      err => {
        console.log('JWT Token invalid: ', err);
@@ -97,6 +100,8 @@ export class AuthService {
        {'username': user.username, 'password': user.password})
        .pipe( map(res => {
            this.storeUserCredentials({username: user.username, token: res.token});
+           this.user=user.username;
+           //console.log('after logging in' +this.user);
            return {'success': true, 'username': user.username };
        }),
         catchError(error => this.processHTTPMsgService.handleError(error)));
@@ -114,6 +119,11 @@ export class AuthService {
    getUsername(): Observable<string> {
      return this.username.asObservable();
    }
+
+   give(): String {
+    return this.user;
+   }
+
 
    getToken(): string {
      return this.authToken;

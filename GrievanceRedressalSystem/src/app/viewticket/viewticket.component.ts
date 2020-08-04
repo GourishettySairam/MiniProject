@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import { Ticket } from '../shared/ticket';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-viewticket',
@@ -9,7 +10,11 @@ import { Ticket } from '../shared/ticket';
 })
 export class ViewticketComponent implements OnInit {
 
-  constructor(private clientService : ClientService) { }
+  username:String;
+
+  constructor(private clientService : ClientService,private authService : AuthService) {
+    this.username = this.authService.give();
+  }
 
   tickets : Ticket[];
   errMess : string;
@@ -18,8 +23,8 @@ export class ViewticketComponent implements OnInit {
   }
 
   getTickets(){
-    console.log("inside get tickets");
-    this.clientService.getTickets()
+    //console.log("inside get tickets");
+    this.clientService.getTickets(this.username)
     .subscribe(tickets => {this.tickets = tickets;console.log(this.tickets)},
     errmess => this.errMess = <any>errmess);
   }

@@ -8,13 +8,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
   logout(){
     console.log("logging out");
+    //document.location.href = 'home',false;
     this.authService.logOut();
   }
 

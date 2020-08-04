@@ -37,6 +37,20 @@ clientRouter.get('/gettickets/:ticketId',cors.corsWithOptions,authenticate.verif
   .catch((err) => next(err));
 })
 
+clientRouter.get('/gettickets/username/:something',cors.corsWithOptions,authenticate.verifyUser,(req,res,next) =>
+{
+  console.log("inside get tickets username");
+  Clients.find({'firstname':req.params.something})
+  .then((tickets) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(tickets);
+    console.log(tickets);
+    console.log("sairam is trying to get");
+}, (err) => next(err))
+.catch((err) => next(err));
+})
+
 clientRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,(req,res,next) =>
 {
       Clients.create(req.body)

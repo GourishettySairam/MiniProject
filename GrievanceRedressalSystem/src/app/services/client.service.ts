@@ -27,11 +27,12 @@ export class ClientService {
       return { 'success' : true };
     }),
     catchError(error => this.processHTTPMsgService.handleError(error)));
-    console.log("inside the client service");
+    //console.log("inside the client service");
   }
 
-  getTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(baseURL + 'client/gettickets')
+  getTickets(username:String): Observable<Ticket[]> {
+    //console.log("inside client service " + username);
+    return this.http.get<Ticket[]>(baseURL + 'client/gettickets/username/' + username)
       .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
