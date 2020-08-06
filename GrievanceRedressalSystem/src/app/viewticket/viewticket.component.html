@@ -9,7 +9,7 @@
         <th>Priority</th>
         <th>Status</th>
         <th>Category</th>
-        <th>Last Reply</th>
+        <th>Assigned To</th>
         <th>Options</th>
       </tr>
     </thead>
@@ -21,7 +21,7 @@
         <td>{{ticket.status}}</td>
         <td>{{ticket.category}}</td>
         <td>{{ticket.assignedto}}</td>
-        <td></td>
+        <td><button class="btn btn-success btn-sm" routerLink="/home" (click)="getTicketById(ticket.id)">view</button></td>
       </tr>
     </tbody>
   </table>

@@ -21,6 +21,9 @@ import { ClientService } from './services/client.service';
 import { ViewticketComponent } from './viewticket/viewticket.component';
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { ChartsModule } from 'ng2-charts';
+import { AllTicketsComponent } from './all-tickets/all-tickets.component';
+import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
+import { YourTicketsComponent } from './your-tickets/your-tickets.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { ChartsModule } from 'ng2-charts';
     HomeComponent,
     ClientViewComponent,
     ViewticketComponent,
-    AdmindashboardComponent
+    AdmindashboardComponent,
+    AllTicketsComponent,
+    TicketDetailComponent,
+    YourTicketsComponent
   ],
   imports: [
     BrowserModule,

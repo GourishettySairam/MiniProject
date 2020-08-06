@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     console.log("logging out");
-    //document.location.href = 'home',false;
+    document.location.href = 'home',false;
     this.authService.logOut();
   }
 

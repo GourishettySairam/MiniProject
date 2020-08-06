@@ -10,6 +10,10 @@ interface TicketResponse {
   success : string;
 }
 
+interface Count {
+  count : number;
+}
+
 
 
 @Injectable({
@@ -30,10 +34,30 @@ export class ClientService {
     //console.log("inside the client service");
   }
 
+  notifyAdmin():Observable<any> {
+    return this.http.get(baseURL + 'email/send')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
   getTickets(username:String): Observable<Ticket[]> {
     //console.log("inside client service " + username);
     return this.http.get<Ticket[]>(baseURL + 'client/gettickets/username/' + username)
       .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getAllTickets(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(baseURL + 'admin/gettickets')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getAssignedTickets(username:String): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(baseURL + 'client/getassignedtickets/' + username)
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getCount(): Observable<any> {
+    return this.http.get<any>(baseURL + 'client/getCount')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
 }

@@ -29,4 +29,8 @@ export class ViewticketComponent implements OnInit {
     errmess => this.errMess = <any>errmess);
   }
 
+  getTicketById(id:any){
+    console.log("getting ticket by Id " + id);
+  }
+
 }

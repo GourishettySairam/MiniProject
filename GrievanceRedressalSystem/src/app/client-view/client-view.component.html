@@ -1,13 +1,27 @@
 <br>
-<br>
-<div class="card w-75">
-  <h5 class="bg-primary text-white card-header ">Create a Ticket</h5>
-<form #loginForm="ngForm" (ngSubmit)="onCreate()">
-  <div class="form-group">
-    <br>
-    <label for="id">Ticket Id</label>
-    <input type="text" class="form-control" [(ngModel)]="ticket.id" name="id" placeholder="" >
+<br><!--(ngSubmit)="onCreate()"-->
+
+<div *ngIf="isTicketCreated" class="card w-75 text-white bg-dark mb-3" >
+  <div class="card-header">Hello</div>
+  <div class="card-body">
+    <h5 class="card-title">Ticket is Succesfully Created</h5>
+    <p class="card-text">Goto View My Tickets to see the status of your ticket</p>
   </div>
+</div>
+
+<div class="card w-75" *ngIf="!isTicketCreated">
+  <h5 class="bg-primary text-white card-header ">Create a Ticket</h5>
+<form #loginForm="ngForm" >
+<br>
+  <label for="id">Ticket Id</label>
+    <div class="input-group mb-3">
+      <br>
+      <input type="text" class="form-control" [(ngModel)]="ticket.id" name="id" placeholder="" disabled>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" (click)="getCount()">Get Id</button>
+      </div>
+    </div>
+
   <div class="form-group">
     <br>
     <label for="subject">Ticket Subject</label>
@@ -43,7 +57,8 @@
     <input type="file" class="form-control-file" name="file" [(ngModel)]="ticket.file">
 </div>
 
-  <input type="submit" value="Create Ticket"  class="btn btn-primary w-100 btn-sm" >&nbsp;
+  <input type="submit" value="Create Ticket" (click)="onCreate()" class="btn btn-primary w-100 btn-sm" >&nbsp;
 
 </form>
+<div class="bg-danger text-white text-center" *ngIf="errMessTicket">{{errMessTicket}}</div><br>
 </div>
