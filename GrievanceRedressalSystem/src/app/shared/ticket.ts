@@ -7,4 +7,8 @@ export class Ticket {
     status: string;
     category: string;
     assignedto: string;
+    message: string;
+    rating: number;
+    createdat: Date;
+    lastupdatedat: Date;
 }

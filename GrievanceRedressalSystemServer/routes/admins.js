@@ -51,15 +51,29 @@ adminRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,auth
 
 adminRouter.put('/changeticket/:ticketId',cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next) =>
 {
-  Clients.findOneAndUpdate(req.params.ticketId,{$set:req.body},{new:true})
+  Clients.findOne({'id':req.params.ticketId})
   .then((ticket) => {
-    console.log('status updated ',ticket);
-    res.statusCode = 200;
-    res.setHeader('Content-Type','application/json');
-    res.json(ticket);
-  }, (err) => {console.log('errror occured while changing status');next(err)})
-  .catch((err) => next(err));
-});
-
+    if(ticket !=null){
+      if(req.body.message){
+        ticket.message = req.body.message;
+        ticket.lastupdatedat = req.body.lastupdatedat;
+      }
+      if(req.body.status){
+        ticket.status = req.body.status;
+        ticket.lastupdatedat = req.body.lastupdatedat;
+      }
+      // if(req.body.lastupdatedat){
+      //   ticket.lastupdatedat = req.body.lastupdatedat;
+      // }
+      ticket.save()
+      .then((ticket) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(ticket);
+      },(err) => next(err));
+    }
+  }, (err) => next(err))
+    .catch((err) => next(err));
+})
 
 module.exports = adminRouter ;

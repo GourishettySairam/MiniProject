@@ -32,8 +32,8 @@ export class ClientViewComponent implements OnInit {
   getCount(){
     this.ticket.id=this.count;
   }
-
-  ticket = {id : this.count , user : this.username ,subject: '' , priority: '', category: '', message: '', status : 'Not Assigned',file:''};
+  createdat : Date = new Date();
+  ticket = {id : this.count , user : this.username ,subject: '' , priority: '', category: '', message: '', status : 'Not Assigned',file:'', createdat:this.createdat};
   errMessTicket = '';
 
   onCreate(){

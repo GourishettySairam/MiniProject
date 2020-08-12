@@ -21,7 +21,7 @@
         <td>{{ticket.status}}</td>
         <td>{{ticket.category}}</td>
         <td>{{ticket.assignedto}}</td>
-        <td><button class="btn btn-success btn-sm" routerLink="/home" (click)="getTicketById(ticket.id)">view</button></td>
+        <td><button class="btn btn-success btn-sm" [routerLink]="['/ticketdetail', ticket.id]"  (click)="getTicketById(ticket.id)">view</button></td>
       </tr>
     </tbody>
   </table>

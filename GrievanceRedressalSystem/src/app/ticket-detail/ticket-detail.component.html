@@ -1,1 +1,68 @@
-<p>ticket-detail works!</p>
+<!-- <br>
+<div class="card w-50" >
+  <div class="card-body">
+  </div>
+</div>
+<div class="card w-50">
+  <div class="card-body">
+  </div>
+</div> -->
+<br>
+
+<div class="row">
+  <div class="col col-md-7 col-lg-7" style="height:1000px">
+    <div class="card" style="height:100px;">
+
+      <div class="body" *ngIf="ticket">
+        {{ticket.title}}
+      </div>
+    </div>
+    <br><br><br>
+    <form #loginForm="ngForm">
+      <div class="form-group">
+        <label for="reply">Reply To Ticket:</label>
+        <textarea class="form-control" rows="5" id="reply" name = "reply" [(ngModel)]="replyMessage"></textarea>
+      </div>
+      <button class="btn btn-primary" (click)="reply()">Reply to Ticket</button>
+    </form>
+
+  </div>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="col col-md-4 col-lg-4" *ngIf="ticket">
+    <h5>Ticket Details</h5>
+    <table class="table table-lg">
+      <tr>
+        <td>Ticket Id : </td>
+        <td>{{ticket.id}}</td>
+      </tr>
+      <tr>
+        <td>Client : </td>
+        <td>{{ticket.firstname}}</td>
+      </tr>
+      <tr>
+        <td>Username : </td>
+        <td>{{ticket.firstname}}</td>
+      </tr>
+      <tr>
+        <td>Created: </td>
+        <td>{{ticket.createdat}}</td>
+      </tr>
+      <tr>
+        <td>Last Updated : </td>
+        <td>{{ticket.lastupdatedat}}</td>
+      </tr>
+      <tr>
+        <td>Assigned User : </td>
+        <td>{{ticket.assignedto}}</td>
+      </tr>
+      <tr>
+        <td>Category : </td>
+        <td>{{ticket.category}}</td>
+      </tr>
+      <tr>
+        <td>Rating : </td>
+        <td>{{ticket.rating}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -42,6 +42,24 @@ var clientSchema = new Schema({
    assignedto: {
      type: String,
      default: ''
+   },
+
+   message: {
+     type: String,
+     default: ''
+   },
+
+   rating: {
+     type: Number,
+     default: 0
+   },
+
+   createdat: {
+     type: Date
+   },
+
+   lastupdatedat: {
+     type: Date
    }
  },
  {

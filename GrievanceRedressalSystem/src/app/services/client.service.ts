@@ -26,7 +26,7 @@ export class ClientService {
 
   createTicket(ticket: any):Observable<any> {
     return this.http.post<TicketResponse>(baseURL + 'client/postticket',
-    {'id':ticket.id,'firstname':ticket.user,'title':ticket.subject,'priority':ticket.priority,'status':ticket.status,'category':ticket.category,'assignedto':ticket.assignedto})
+    {'id':ticket.id,'firstname':ticket.user,'title':ticket.subject,'priority':ticket.priority,'status':ticket.status,'category':ticket.category,'assignedto':ticket.assignedto,'createdat':ticket.createdat,'message':ticket.message})
     .pipe(map(res=>{
       return { 'success' : true };
     }),
@@ -58,6 +58,26 @@ export class ClientService {
   getCount(): Observable<any> {
     return this.http.get<any>(baseURL + 'client/getCount')
     .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getTicket(id: number): Observable<Ticket> {
+      return this.http.get<Ticket>(baseURL + 'client/getTickets/' + id)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+    }
+
+  getTicketIds(): Observable<number[] | any> {
+      return this.getAllTickets().pipe(map(tickets => tickets.map(ticket => ticket.id)))
+        .pipe(catchError(error => error));
+    }
+
+  updateTicket(ticket: any):Observable<any> {
+    return this.http.put<TicketResponse>(baseURL + 'admin/changeticket/' + ticket.id,
+    {'id':ticket.id,'firstname':ticket.firstname,'title':ticket.title,'priority':ticket.priority,'status':ticket.status,'category':ticket.category,'assignedto':ticket.assignedto,'createdat':ticket.createdat,'message':ticket.message,'lastupdatedat':ticket.lastupdatedat,'rating':ticket.rating})
+    .pipe(map(res=>{
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
+    //console.log("inside the client service");
   }
 
 }
