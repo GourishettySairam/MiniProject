@@ -1,5 +1,12 @@
 <br>
-<div class="card w-75">
+<div *ngIf="isLoggedIn" class="card w-75 text-white bg-dark mb-3" >
+  <div class="card-header"></div>
+  <div class="card-body">
+    <h5 class="card-title">Login Successful</h5>
+  </div>
+</div>
+
+<div class="card w-75" *ngIf="!isLoggedIn">
   <h5 class="text-center card-header ">Login and Registration Form</h5>
 <form   #loginForm="ngForm" >
   <div class="form-group">
@@ -24,4 +31,8 @@
   <div class="text-danger" *ngIf="errMessSignup">{{errMessSignup}}</div>
 </form>
 </div>
+
+
+
+
 <br>

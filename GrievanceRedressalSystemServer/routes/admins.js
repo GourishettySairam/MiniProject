@@ -6,7 +6,9 @@ var authenticate = require('../authenticate');
 var config = require('../config');
 const cors = require('./cors');
 var Clients = require('../models/client');
+var Members = require('../models/member');
 var mongoose = require('mongoose');
+
 
 var adminRouter = express.Router();
 adminRouter.use(bodyParser.json());
@@ -75,5 +77,16 @@ adminRouter.put('/changeticket/:ticketId',cors.corsWithOptions,authenticate.veri
   }, (err) => next(err))
     .catch((err) => next(err));
 })
+
+adminRouter.post('/addmembers',cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next) =>
+{
+  Members.create(req.body)
+  .then((member) => {
+    console.log("member added");
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(member);
+  }, (err) => { console.log(err); next(err)})
+});
 
 module.exports = adminRouter ;

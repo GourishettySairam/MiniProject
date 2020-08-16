@@ -9,9 +9,15 @@ import {FormsModule} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  isLoggedIn: Boolean = false;
+
+  constructor(private authService: AuthService) {
+    this.isLoggedIn = this.authService.isLoggedIn();
+    console.log(this.isLoggedIn);
+  }
 
   ngOnInit(): void {
+    console.log(this.isLoggedIn);
   }
 
   user = {username: '', password: '', remember: false};
@@ -24,9 +30,8 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.user)
       .subscribe(res => {
         if (res.success) {
-          //document.location.href='admindashboard',true;
-          //location.go('/home');
           console.log("success");
+          this.isLoggedIn = true;
         } else {
           console.log(res);
         }

@@ -14,7 +14,7 @@
     <div class="card" style="height:100px;">
 
       <div class="body" *ngIf="ticket">
-        {{ticket.title}}
+        <h4>{{ticket.title}}</h4>
       </div>
     </div>
     <br><br><br>
@@ -23,7 +23,7 @@
         <label for="reply">Reply To Ticket:</label>
         <textarea class="form-control" rows="5" id="reply" name = "reply" [(ngModel)]="replyMessage"></textarea>
       </div>
-      <button class="btn btn-primary" (click)="reply()">Reply to Ticket</button>
+      <button class="btn btn-primary" (click)="reply()" [disabled]="replyMessage === ''">Reply to Ticket</button>
     </form>
 
   </div>
@@ -63,6 +63,36 @@
         <td>Rating : </td>
         <td>{{ticket.rating}}</td>
       </tr>
+      <tr>
+        <td>Message : </td>
+        <td>{{ticket.message}}</td>
+      </tr>
+
+      <tr>
+        <td>
+          Status
+        </td>
+        <td>
+            <select class="dropdown-item bg-light dropdown-toggle w-100" name="status" [(ngModel)]="ticket.status">
+              <option class="w-100 dropdown-item" >New</option>
+              <option class="w-100 dropdown-item" >In Progress</option>
+              <option class="w-100 dropdown-item" >Closed</option>
+            </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Assign
+        </td>
+        <td>
+            <select class="dropdown-item bg-light dropdown-toggle w-100" name="assign" [(ngModel)]="ticket.status">
+              <option class="w-100 dropdown-item" *ngFor="let member of cellMembers">{{member}}</option>
+            </select>
+        </td>
+      </tr>
+
     </table>
+
   </div>
 </div>

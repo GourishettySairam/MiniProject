@@ -14,7 +14,8 @@ export class TicketDetailComponent implements OnInit {
   ticket : Ticket;
   ticketIds : number[];
   errMess : string;
-  replyMessage: string;
+  replyMessage: string='';
+  cellMembers : {};
 
   constructor(private clientService : ClientService,private route: ActivatedRoute) {
 

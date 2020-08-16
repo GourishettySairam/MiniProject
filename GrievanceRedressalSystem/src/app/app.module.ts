@@ -24,6 +24,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AllTicketsComponent } from './all-tickets/all-tickets.component';
 import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { YourTicketsComponent } from './your-tickets/your-tickets.component';
+import { AddmembersComponent } from './addmembers/addmembers.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { YourTicketsComponent } from './your-tickets/your-tickets.component';
     AdmindashboardComponent,
     AllTicketsComponent,
     TicketDetailComponent,
-    YourTicketsComponent
+    YourTicketsComponent,
+    AddmembersComponent
   ],
   imports: [
     BrowserModule,

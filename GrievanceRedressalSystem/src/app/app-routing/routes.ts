@@ -10,6 +10,7 @@ import { AdmindashboardComponent } from '../admindashboard/admindashboard.compon
 import { AllTicketsComponent } from '../all-tickets/all-tickets.component';
 import { YourTicketsComponent } from '../your-tickets/your-tickets.component';
 import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
+import { AddmembersComponent } from '../addmembers/addmembers.component';
 
 export const routes : Routes = [
   //{path:'home', component: AppComponent},
@@ -23,6 +24,7 @@ export const routes : Routes = [
   {path:'alltickets', component: AllTicketsComponent},
   {path:'yourtickets', component: YourTicketsComponent},
   {path:'ticketdetail/:id', component: TicketDetailComponent},
+  {path:'admin/addmembers', component: AddmembersComponent},
   //{path:'',component: AppComponent}
   {path: '', redirectTo:'/home',pathMatch:'full'}
 ];
