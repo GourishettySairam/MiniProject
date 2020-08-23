@@ -1,0 +1,36 @@
+<br>
+<div class="container">
+  <div class="card"  style="width:98%">
+    <h5>Add Categories</h5>
+
+    <form >
+      <div class="form-row" *ngFor="let cat of category">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="{{cat.categoryname}}" name="category" >
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder='{{cat.head}}' name="head" disabled>
+        </div>
+        <br><br>
+      </div><br>
+    </form>
+
+<br>
+    <form #Form="ngForm">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Category Name" [(ngModel)]="postCategory.categoryname" name="category" >
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Point of Contact" [(ngModel)]="postCategory.head" name="head" >
+        </div>
+      </div>
+        <br>
+        <button class="btn btn-primary w-100" (click)="addCategory()" >Add Category</button>
+    </form>
+
+    <div>
+      <p ></p>
+    </div>
+  </div>
+</div>

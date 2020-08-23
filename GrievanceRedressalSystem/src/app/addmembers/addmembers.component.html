@@ -1,9 +1,15 @@
 <br>
 <div class="container">
-  <div class="card">
+  <div *ngIf="isMemberAdded" class="card w-75 text-white bg-dark mb-3" >
+    <div class="card-header"></div>
+    <div class="card-body">
+      <h5 class="card-title text-center">Member Added</h5><br>
+      <button class="btn bg-light w-100" (click)="addAnotherMember()">Add Another Member</button>
+    </div>
+  </div>
+  <div class="card" *ngIf="!isMemberAdded" style="width:98%">
     <h5>Add Members</h5>
     <form #Form="ngForm">
-
       <div class="form-row">
         <div class="col">
           <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="member.name">

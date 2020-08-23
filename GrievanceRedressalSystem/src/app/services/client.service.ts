@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Ticket } from '../shared/ticket';
+import { Member } from '../shared/member';
+import { Category } from '../shared/category';
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
@@ -37,6 +39,14 @@ export class ClientService {
   notifyAdmin():Observable<any> {
     return this.http.get(baseURL + 'email/send')
     .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  notifyMember(mail:String):Observable<any> {
+    return this.http.post(baseURL + 'email/notifymember/' + mail, {'email':mail} )
+    .pipe(map(res=>{
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
   }
 
   getTickets(username:String): Observable<Ticket[]> {
@@ -78,6 +88,38 @@ export class ClientService {
     }),
     catchError(error => this.processHTTPMsgService.handleError(error)));
     //console.log("inside the client service");
+  }
+
+  addmember(member : any):Observable<any> {
+    return this.http.post<TicketResponse>(baseURL + 'admin/addmembers',
+    { 'name':member.name, 'email':member.email, 'department': member.department })
+    .pipe(map(res => {
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
+  }
+
+  getMembers(): Observable<Member[]> {
+    return this.http.get<Member[]>(baseURL + 'admin/getMembers')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getMemberByName(name : string ) : Observable<Member> {
+    return this.http.get<Member>(baseURL + 'admin/getmemberbyname/' + name )
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(baseURL + 'admin/getcategories')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  addCategories(category: any): Observable<any> {
+    return this.http.post<any>(baseURL + 'admin/addcategory', { 'categoryname' : category.categoryname,'head': category.head })
+    .pipe(map(res=>{
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
   }
 
 }

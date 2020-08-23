@@ -7,6 +7,7 @@ var config = require('../config');
 const cors = require('./cors');
 var Clients = require('../models/client');
 var Members = require('../models/member');
+var Categories = require('../models/category');
 var mongoose = require('mongoose');
 
 
@@ -64,9 +65,13 @@ adminRouter.put('/changeticket/:ticketId',cors.corsWithOptions,authenticate.veri
         ticket.status = req.body.status;
         ticket.lastupdatedat = req.body.lastupdatedat;
       }
-      // if(req.body.lastupdatedat){
-      //   ticket.lastupdatedat = req.body.lastupdatedat;
-      // }
+      if(req.body.assignedto){
+        ticket.assignedto = req.body.assignedto;
+      }
+      if(req.body.rating){
+        ticket.rating = req.body.rating;
+      }
+
       ticket.save()
       .then((ticket) => {
         res.statusCode = 200;
@@ -88,5 +93,67 @@ adminRouter.post('/addmembers',cors.corsWithOptions,authenticate.verifyUser,auth
     res.json(member);
   }, (err) => { console.log(err); next(err)})
 });
+
+adminRouter.get('/getmembers', cors.corsWithOptions,authenticate.verifyUser ,authenticate.verifyAdmin, (req, res, next) =>
+{
+      Members.find({})
+        .then((tickets) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(tickets);
+          console.log(tickets);
+          console.log("sairam is trying to get members");
+      }, (err) => next(err))
+      .catch((err) => next(err));
+})
+
+adminRouter.get('/getmemberbyname/:name', cors.corsWithOptions,authenticate.verifyUser ,authenticate.verifyAdmin, (req, res, next) =>
+{
+      Members.find({'name':req.params.name})
+        .then((tickets) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(tickets);
+          console.log(tickets);
+          console.log("sairam is trying to get members");
+      }, (err) => next(err))
+      .catch((err) => next(err));
+})
+
+adminRouter.get('/getclosedcount', cors.corsWithOptions, (req,res,next) => {
+  Clients.count({'status':'closed'}, function(err, result) {
+     if (err) {
+       console.log(err);
+     } else {
+       //console.log('number is ' +  result);
+       res.json({'count':result});
+     }
+   });
+})
+
+adminRouter.post('/addcategory', cors.corsWithOptions, (req,res,next) => {
+  Categories.create(req.body)
+  .then((category) => {
+      console.log('Category Created ', category);
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json(category);
+  }, (err) => {console.log(req.body);next(err)})
+  .catch((err) => next(err));
+})
+
+adminRouter.get('/getcategories', cors.corsWithOptions, (req,res,next) =>
+{
+  Categories.find({})
+    .then((categories) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json(categories);
+      console.log(categories);
+  }, (err) => next(err))
+  .catch((err) => next(err));
+})
+
+// authenticate.verifyUser, authenticate.verifyAdmin
 
 module.exports = adminRouter ;

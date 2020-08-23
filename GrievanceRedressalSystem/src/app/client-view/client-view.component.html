@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div class="card w-75" *ngIf="!isTicketCreated">
+<div class="card " *ngIf="!isTicketCreated" style="width:95%">
   <h5 class="bg-primary text-white card-header ">Create a Ticket</h5>
 <form #loginForm="ngForm" >
 <br>
@@ -41,9 +41,12 @@
   <label for="category">Category</label>
   <br>
 <select class="dropdown-item bg-light dropdown-toggle w-100" name = "category" [(ngModel)]="ticket.category">
-  <option class="w-100 dropdown-item" >Transcript</option>
-  <option class="w-100 dropdown-item" >Verfication</option>
+  <option class="w-100 dropdown-item" >General</option>
+  <option class="w-100 dropdown-item" >Courses</option>
+  <option class="w-100 dropdown-item" >Registration</option>
+  <option class="w-100 dropdown-item" >Administration</option>
   <option class="w-100 dropdown-item" >Finance</option>
+  <option class="w-100 dropdown-item" >Placement</option>
 </select>
 </div>
 

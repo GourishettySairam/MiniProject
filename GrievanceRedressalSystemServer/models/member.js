@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 
 var memberSchema = new Schema({
 
-  id: {
-    type: String,
-    unique : true
-  },
+  // id: {
+  //   type: String,
+  //   unique : true
+  // },
 
   name: {
     type: String,
@@ -15,12 +15,17 @@ var memberSchema = new Schema({
 
   email: {
     type: String,
-    default: ''
+    default: '',
+    unique: true
   },
 
   department: {
     type: String,
     default: ''
+  },
+
+  ticketsassigned: {
+    type:[Number]
   }
 },
 {

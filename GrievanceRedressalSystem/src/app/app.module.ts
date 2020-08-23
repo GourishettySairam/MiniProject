@@ -25,6 +25,7 @@ import { AllTicketsComponent } from './all-tickets/all-tickets.component';
 import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { YourTicketsComponent } from './your-tickets/your-tickets.component';
 import { AddmembersComponent } from './addmembers/addmembers.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AddmembersComponent } from './addmembers/addmembers.component';
     AllTicketsComponent,
     TicketDetailComponent,
     YourTicketsComponent,
-    AddmembersComponent
+    AddmembersComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

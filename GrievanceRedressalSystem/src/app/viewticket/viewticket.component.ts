@@ -23,7 +23,6 @@ export class ViewticketComponent implements OnInit {
   }
 
   getTickets(){
-    //console.log("inside get tickets");
     this.clientService.getTickets(this.username)
     .subscribe(tickets => {this.tickets = tickets;console.log(this.tickets)},
     errmess => this.errMess = <any>errmess);

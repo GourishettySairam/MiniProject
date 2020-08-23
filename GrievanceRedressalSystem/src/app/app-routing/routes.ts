@@ -11,6 +11,7 @@ import { AllTicketsComponent } from '../all-tickets/all-tickets.component';
 import { YourTicketsComponent } from '../your-tickets/your-tickets.component';
 import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
 import { AddmembersComponent } from '../addmembers/addmembers.component';
+import { CategoriesComponent } from '../categories/categories.component';
 
 export const routes : Routes = [
   //{path:'home', component: AppComponent},
@@ -21,10 +22,11 @@ export const routes : Routes = [
   {path:'client/createticket', component: ClientViewComponent},
   {path:'client/viewtickets', component: ViewticketComponent},
   {path:'admindashboard', component: AdmindashboardComponent},
-  {path:'alltickets', component: AllTicketsComponent},
-  {path:'yourtickets', component: YourTicketsComponent},
+  {path:'tickets/alltickets', component: AllTicketsComponent},
+  {path:'tickets/yourtickets', component: YourTicketsComponent},
   {path:'ticketdetail/:id', component: TicketDetailComponent},
   {path:'admin/addmembers', component: AddmembersComponent},
+  {path:'tickets/categories', component: CategoriesComponent},
   //{path:'',component: AppComponent}
   {path: '', redirectTo:'/home',pathMatch:'full'}
 ];
