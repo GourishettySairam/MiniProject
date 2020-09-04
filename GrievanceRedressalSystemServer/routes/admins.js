@@ -121,7 +121,7 @@ adminRouter.get('/getmemberbyname/:name', cors.corsWithOptions,authenticate.veri
 })
 
 adminRouter.get('/getclosedcount', cors.corsWithOptions, (req,res,next) => {
-  Clients.count({'status':'closed'}, function(err, result) {
+  Clients.count({'status':'Closed'}, function(err, result) {
      if (err) {
        console.log(err);
      } else {
@@ -130,6 +130,20 @@ adminRouter.get('/getclosedcount', cors.corsWithOptions, (req,res,next) => {
      }
    });
 })
+
+adminRouter.get('/getassignedcount', cors.corsWithOptions, (req,res,next) => {
+  Clients.count({'assignedto': { $ne : ''} }, function(err, result) {
+     if (err) {
+       console.log(err);
+     } else {
+       //console.log('number is ' +  result);
+       res.json({'count':result});
+     }
+   });
+})
+
+
+
 
 adminRouter.post('/addcategory', cors.corsWithOptions, (req,res,next) => {
   Categories.create(req.body)
@@ -152,6 +166,28 @@ adminRouter.get('/getcategories', cors.corsWithOptions, (req,res,next) =>
       console.log(categories);
   }, (err) => next(err))
   .catch((err) => next(err));
+})
+
+adminRouter.delete('/deleteticket/:id', cors.corsWithOptions, (req, res, next) => {
+  Clients.deleteOne({'id':req.params.id}, function (err) {
+    if(err) console.log(err);
+    else{
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({'success':'deleted'});
+    }
+  })
+})
+
+adminRouter.delete('/deletemember/:name', cors.corsWithOptions, (req, res, next) => {
+  Members.deleteOne({'name':req.params.name}, function (err) {
+    if(err) console.log(err);
+    else{
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({'success':'deleted'});
+    }
+  })
 })
 
 // authenticate.verifyUser, authenticate.verifyAdmin

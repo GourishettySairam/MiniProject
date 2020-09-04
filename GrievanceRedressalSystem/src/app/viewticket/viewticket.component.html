@@ -10,7 +10,8 @@
         <th>Status</th>
         <th>Category</th>
         <th>Assigned To</th>
-        <th>Options</th>
+        <th>Last Reply</th>
+        <th>Rating</th>
       </tr>
     </thead>
     <tbody>
@@ -21,7 +22,8 @@
         <td>{{ticket.status}}</td>
         <td>{{ticket.category}}</td>
         <td>{{ticket.assignedto}}</td>
-        <td><button class="btn btn-success btn-sm" [routerLink]="['/ticketdetail', ticket.id]"  (click)="getTicketById(ticket.id)">view</button></td>
+        <td>{{ticket.message}}</td>
+        <td><p *ngIf="ticket.rating">{{ticket.rating}} stars</p></td>
       </tr>
     </tbody>
   </table>

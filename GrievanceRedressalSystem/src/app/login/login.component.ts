@@ -10,6 +10,8 @@ import {FormsModule} from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   isLoggedIn: Boolean = false;
+  haveAccount : Boolean = true;
+  isSignupSuccessful : Boolean = false;
 
   constructor(private authService: AuthService) {
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
     this.authService.signUp(this.user)
       .subscribe(res => {
         if (res.success) {
+          this.isSignupSuccessful = true;
           console.log("success");
         } else {
           console.log(res);
@@ -61,6 +64,11 @@ export class LoginComponent implements OnInit {
   logout(){
     console.log("logging out");
     this.authService.logOut();
+  }
+
+  negateHaveAccount()
+  {
+    this.haveAccount = !this.haveAccount;
   }
 
 }

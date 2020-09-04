@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-admindashboard',
@@ -9,10 +10,18 @@ import { Color, Label } from 'ng2-charts';
 })
 export class AdmindashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private clientService : ClientService) {
+    this.clientService.getClosedCount().subscribe((res) => this.closedTicketCount = res.count);
+    this.clientService.getCount().subscribe((res) => this.totalTicketCount = res.count);
+    this.clientService.getAssignedCount().subscribe((res) => this.assignedTicketCount = res.count);
+  }
 
   ngOnInit(): void {
   }
+
+  totalTicketCount = 0;
+  assignedTicketCount = 0;
+  closedTicketCount = 0;
 
   public lineChartData: ChartDataSets[] = [
   { data: [65, 59, 80, 81, 56, 55, 80,55,65,85,50,42], label: 'Series A' },

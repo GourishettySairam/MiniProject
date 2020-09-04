@@ -22,8 +22,8 @@
         <td>{{ticket.priority}}</td>
         <td>{{ticket.status}}</td>
         <td>{{ticket.category}}</td>
-        <td>{{ticket.message}}</td>
         <td>{{ticket.assignedto}}</td>
+        <td>{{ticket.message}}</td>
         <td><button class="btn btn-success btn-sm" [routerLink]="['/ticketdetail', ticket.id]" (click)="getTicketById(ticket.id)">view</button></td>
       </tr>
     </tbody>

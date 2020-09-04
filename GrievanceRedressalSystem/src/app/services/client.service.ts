@@ -70,6 +70,16 @@ export class ClientService {
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
+  getClosedCount(): Observable<any> {
+    return this.http.get<any>(baseURL + 'admin/getclosedcount')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getAssignedCount(): Observable<any> {
+    return this.http.get<any>(baseURL + 'admin/getassignedcount')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
   getTicket(id: number): Observable<Ticket> {
       return this.http.get<Ticket>(baseURL + 'client/getTickets/' + id)
         .pipe(catchError(this.processHTTPMsgService.handleError));
