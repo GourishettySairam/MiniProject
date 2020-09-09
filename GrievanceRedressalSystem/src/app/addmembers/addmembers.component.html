@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="card" *ngIf="!isMemberAdded" style="width:98%">
-    <h5>Add Members</h5>
+    <h5 class="card-header text-center">Add Members</h5><br>
     <form #Form="ngForm">
       <div class="form-row">
         <div class="col">
@@ -28,7 +28,26 @@
         </div>
         <br>
         <button class="btn btn-primary w-100" (click)="addMember()">Add Member</button>
-
     </form>
   </div>
+  <br>
+  <hr style="background-color:red;width:96%"><br>
+  <button class="btn btn-primary " (click)="showMembersOnClick()" style="width:98%">Manage Existing Members</button><br><br>
+  <div class="card w-100" *ngIf="showMembers">
+    <div class="form-row" *ngFor="let member of members">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="{{member.name}}" name="name" disabled>
+      </div>
+      <div class="col" style="width:95%">
+        <input type="text" class="form-control" placeholder="{{member.department}}" name="department" disabled>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="{{member.email}}" name="email" disabled>
+      </div>
+      <div class="col text-center">
+        <button class="btn btn-danger w-75" (click)="deleteMember(member._id)">Delete</button>
+      </div><br><br>
+    </div>
+  </div>
+
 </div>

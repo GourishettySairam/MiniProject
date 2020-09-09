@@ -65,24 +65,14 @@ clientRouter.get('/getassignedtickets/:username',cors.corsWithOptions,authentica
 .catch((err) => next(err));
 })
 
-clientRouter.get('/getCount',cors.corsWithOptions,(req,res,next) =>
+clientRouter.get('/getCount',cors.corsWithOptions, authenticate.verifyUser, (req,res,next) =>
 {
-  /*Clients.count({}, function(err, result) {
-     if (err) {
-       console.log(err);
-     } else {
-       //console.log('number is ' +  result);
-       res.json({'count':result});
-     }
-   });*/
-
    Clients.find({})
    .sort("-id")
    .limit(1)
    .exec((error,data) => {res.json({'count':data[0].id});});
 
 })
-
 
 clientRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,(req,res,next) =>
 {

@@ -26,6 +26,7 @@ import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { YourTicketsComponent } from './your-tickets/your-tickets.component';
 import { AddmembersComponent } from './addmembers/addmembers.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { AddclientsComponent } from './addclients/addclients.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CategoriesComponent } from './categories/categories.component';
     TicketDetailComponent,
     YourTicketsComponent,
     AddmembersComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    AddclientsComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,9 @@ export class LoginComponent implements OnInit {
   isLoggedIn: Boolean = false;
   haveAccount : Boolean = true;
   isSignupSuccessful : Boolean = false;
+  signupCompleted : Boolean = false;
+  otp : string ;
+  showOtpBox : Boolean = false;
 
   constructor(private authService: AuthService) {
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -22,7 +25,7 @@ export class LoginComponent implements OnInit {
     console.log(this.isLoggedIn);
   }
 
-  user = {username: '', password: '', remember: false};
+  user = {username: '', password: '', firstname:'', email:'', name:'' };
   name = {firstname:'',lastname:''}
   errMessLogin: string;
   errMessSignup: string;
@@ -70,5 +73,26 @@ export class LoginComponent implements OnInit {
   {
     this.haveAccount = !this.haveAccount;
   }
+
+  checkOtp(){
+    this.authService.checkOtp(this.otp, this.user.email)
+    .subscribe((res)=>{
+      console.log("otp successfully verified");
+      this.signupCompleted = !this.signupCompleted;
+      this.isSignupSuccessful = !this.isSignupSuccessful;
+      this.haveAccount = !this.haveAccount;
+    },
+    error => {
+      console.log(error);
+      this.errMessSignup = error;
+    });
+  }
+  //
+  // sendOtp(){
+  //   this.showOtpBox = !this.showOtpBox;
+  //   this.authService.sendOtp()
+  //   .subscribe((res)=>console.log("otp sent succesfully"));
+  // }
+  //
 
 }

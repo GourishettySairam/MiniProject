@@ -18,6 +18,10 @@ interface JWTResponse {
   user: any;
 }
 
+interface Response {
+  status : string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -87,7 +91,7 @@ export class AuthService {
 
    signUp(user: any):Observable<any> {
       return this.http.post<AuthResponse>(baseURL + 'users/signup',
-      {'username': user.username, 'password':user.password })
+      {'username': user.username, 'password':user.password, 'firstname':user.name, 'email': user.email })
       .pipe(map(res=>{
         this.storeUserCredentials({username: user.username, token: res.token});
         return {'success': true, 'username': user.username };
@@ -127,5 +131,14 @@ export class AuthService {
 
    getToken(): string {
      return this.authToken;
+   }
+
+   checkOtp(otp:string, email:string): Observable<any> {
+     return this.http.post<Response>(baseURL + 'users/checkotp',
+     { 'token': otp, 'email': email})
+     .pipe(map(res => {
+       return { 'success' : true };
+     }),
+     catchError(error => this.processHTTPMsgService.handleError(error)));
    }
 }

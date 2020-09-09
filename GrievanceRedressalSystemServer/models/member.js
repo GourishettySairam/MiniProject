@@ -3,11 +3,6 @@ var Schema = mongoose.Schema;
 
 var memberSchema = new Schema({
 
-  // id: {
-  //   type: String,
-  //   unique : true
-  // },
-
   name: {
     type: String,
     default: ''

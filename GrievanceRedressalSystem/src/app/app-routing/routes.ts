@@ -12,21 +12,21 @@ import { YourTicketsComponent } from '../your-tickets/your-tickets.component';
 import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
 import { AddmembersComponent } from '../addmembers/addmembers.component';
 import { CategoriesComponent } from '../categories/categories.component';
+import { AddclientsComponent } from '../addclients/addclients.component';
 
 export const routes : Routes = [
-  //{path:'home', component: AppComponent},
-  {path : 'users', component : AppComponent},
-  {path: 'login', component: LoginComponent},
-  {path:'home' , component: HomeComponent},
-  {path:'nav',component: NavigationBarComponent},
-  {path:'client/createticket', component: ClientViewComponent},
-  {path:'client/viewtickets', component: ViewticketComponent},
-  {path:'admindashboard', component: AdmindashboardComponent},
-  {path:'tickets/alltickets', component: AllTicketsComponent},
-  {path:'tickets/yourtickets', component: YourTicketsComponent},
-  {path:'ticketdetail/:id', component: TicketDetailComponent},
-  {path:'admin/addmembers', component: AddmembersComponent},
-  {path:'tickets/categories', component: CategoriesComponent},
-  //{path:'',component: AppComponent}
-  {path: '', redirectTo:'/home',pathMatch:'full'}
+  { path : 'users', component : AppComponent },
+  { path: 'login', component: LoginComponent },
+  { path:'home' , component: HomeComponent },
+  { path:'nav', component: NavigationBarComponent },
+  { path:'client/createticket', component: ClientViewComponent },
+  { path:'client/viewtickets', component: ViewticketComponent },
+  { path:'admindashboard', component: AdmindashboardComponent },
+  { path:'tickets/alltickets', component: AllTicketsComponent },
+  { path:'tickets/yourtickets', component: YourTicketsComponent },
+  { path:'ticketdetail/:id', component: TicketDetailComponent },
+  { path:'admin/addmembers', component: AddmembersComponent },
+  { path:'tickets/categories', component: CategoriesComponent },
+  { path:'admin/addclients', component: AddclientsComponent },
+  { path: '', redirectTo:'/home', pathMatch:'full' }
 ];

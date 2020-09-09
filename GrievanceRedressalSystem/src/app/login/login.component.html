@@ -6,24 +6,32 @@
   </div>
 </div>
 
-<div *ngIf="isSignupSuccessful" class="card w-75 text-white bg-dark mb-3" >
+<div *ngIf="signupCompleted" class="card w-75 text-white bg-dark mb-3" >
   <div class="card-header"></div>
   <div class="card-body">
     <h5 class="card-title text-center">Your Account is Successfully Created</h5>
   </div>
 </div>
 
+<div class="card w-75" *ngIf="isSignupSuccessful">
+  <h5 class="card-header">Enter your otp</h5>
+  <input type="text" [(ngModel)]="otp"><br>
+  <button class="btn btn-primary w-100" (click)="checkOtp()">Verify Otp</button>
+</div>
+
 <div class="card w-75" *ngIf="!isLoggedIn && haveAccount">
   <h5 class="text-center card-header ">Login</h5>
 <form   #loginForm="ngForm" >
   <div class="form-group">
-    <label for="username">UserName</label>
-    <input type="text" class="form-control" [(ngModel)]="user.username" name="username" placeholder="Enter username"  required>
+    <label for="username">University ID</label>
+    <input type="text" class="form-control" [(ngModel)]="user.username" name="username" placeholder="Enter your University ID"  required>
   </div>
   <div class="form-group">
     <label for="password">Password</label>
     <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="Enter your password"  required>
   </div>
+
+
   <input type="submit" class="btn btn-primary  w-100" (click)="onSubmit()" value="Login"><br>
   <br><a  (click)="negateHaveAccount()">I dont have an account</a>
   <a  style="float:right" (click)="negateHaveAccount()">Forgot my password</a>
@@ -37,8 +45,18 @@
   <h5 class="text-center card-header ">Registration</h5>
   <form   #loginForm="ngForm" >
     <div class="form-group">
-      <label for="username">UserName</label>
+      <label for="name">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="user.name" name="name" placeholder="Enter your name"  required>
+    </div>
+    <div class="form-group">
+      <label for="username">University ID</label>
       <input type="text" class="form-control" [(ngModel)]="user.username" name="username" placeholder="Enter username"  required>
+    </div>
+    <div class="form-group">
+      <label for="email">University Email</label>
+      <input type="text" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Enter your university email"  required>
+      <!-- <button class="btn btn-sm" (click)="sendOtp()">Verify Email</button>
+      <input type="text" *ngIf="sendOtpBox"> -->
     </div>
     <div class="form-group">
       <label for="password">Password</label>

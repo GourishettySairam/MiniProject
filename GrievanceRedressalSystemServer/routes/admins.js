@@ -7,6 +7,7 @@ var config = require('../config');
 const cors = require('./cors');
 var Clients = require('../models/client');
 var Members = require('../models/member');
+
 var Categories = require('../models/category');
 var mongoose = require('mongoose');
 
@@ -23,8 +24,8 @@ adminRouter.get('/gettickets', cors.corsWithOptions,authenticate.verifyUser ,aut
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(tickets);
-          console.log(tickets);
-          console.log("sairam is trying to get tickets");
+          // console.log(tickets);
+          // console.log("sairam is trying to get tickets");
       }, (err) => next(err))
       .catch((err) => next(err));
 })
@@ -44,7 +45,7 @@ adminRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,auth
 {
       Clients.create(req.body)
       .then((dish) => {
-          console.log('Ticket Created ', dish);
+        //  console.log('Ticket Created ', dish);
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(dish);
@@ -87,22 +88,21 @@ adminRouter.post('/addmembers',cors.corsWithOptions,authenticate.verifyUser,auth
 {
   Members.create(req.body)
   .then((member) => {
-    console.log("member added");
+    //console.log("member added");
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json(member);
   }, (err) => { console.log(err); next(err)})
 });
 
-adminRouter.get('/getmembers', cors.corsWithOptions,authenticate.verifyUser ,authenticate.verifyAdmin, (req, res, next) =>
+adminRouter.get('/getmembers', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) =>
 {
       Members.find({})
         .then((tickets) => {
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(tickets);
-          console.log(tickets);
-          console.log("sairam is trying to get members");
+          //console.log(tickets);
       }, (err) => next(err))
       .catch((err) => next(err));
 })
@@ -114,13 +114,13 @@ adminRouter.get('/getmemberbyname/:name', cors.corsWithOptions,authenticate.veri
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(tickets);
-          console.log(tickets);
-          console.log("sairam is trying to get members");
+          //console.log(tickets);
+          //console.log("sairam is trying to get members");
       }, (err) => next(err))
       .catch((err) => next(err));
 })
 
-adminRouter.get('/getclosedcount', cors.corsWithOptions, (req,res,next) => {
+adminRouter.get('/getclosedcount', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) => {
   Clients.count({'status':'Closed'}, function(err, result) {
      if (err) {
        console.log(err);
@@ -131,7 +131,7 @@ adminRouter.get('/getclosedcount', cors.corsWithOptions, (req,res,next) => {
    });
 })
 
-adminRouter.get('/getassignedcount', cors.corsWithOptions, (req,res,next) => {
+adminRouter.get('/getassignedcount', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) => {
   Clients.count({'assignedto': { $ne : ''} }, function(err, result) {
      if (err) {
        console.log(err);
@@ -142,13 +142,10 @@ adminRouter.get('/getassignedcount', cors.corsWithOptions, (req,res,next) => {
    });
 })
 
-
-
-
-adminRouter.post('/addcategory', cors.corsWithOptions, (req,res,next) => {
+adminRouter.post('/addcategory', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) => {
   Categories.create(req.body)
   .then((category) => {
-      console.log('Category Created ', category);
+      //console.log('Category Created ', category);
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json(category);
@@ -163,12 +160,12 @@ adminRouter.get('/getcategories', cors.corsWithOptions, (req,res,next) =>
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json(categories);
-      console.log(categories);
+      //console.log(categories);
   }, (err) => next(err))
   .catch((err) => next(err));
 })
 
-adminRouter.delete('/deleteticket/:id', cors.corsWithOptions, (req, res, next) => {
+adminRouter.delete('/deleteticket/:id', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   Clients.deleteOne({'id':req.params.id}, function (err) {
     if(err) console.log(err);
     else{
@@ -179,15 +176,60 @@ adminRouter.delete('/deleteticket/:id', cors.corsWithOptions, (req, res, next) =
   })
 })
 
-adminRouter.delete('/deletemember/:name', cors.corsWithOptions, (req, res, next) => {
-  Members.deleteOne({'name':req.params.name}, function (err) {
+adminRouter.delete('/deletemember/:id', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+  Members.deleteOne({'_id':req.params.id}, function (err) {
     if(err) console.log(err);
     else{
+      //console.log("member deleted");
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json({'success':'deleted'});
     }
   })
+})
+
+adminRouter.post('/addnewuser',cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+  User.register(new User({username: req.body.username}),
+    req.body.password, (err, user) => {
+    if(err) {
+      //console.log("inside if");
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({err: err});
+    }
+    else {
+      console.log("inside else");
+      if (req.body.firstname)
+        user.firstname = req.body.firstname;
+      if (req.body.lastname)
+        user.lastname = req.body.lastname;
+      user.save((err, user) => {
+        if (err) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({err: err});
+          return ;
+        }
+        else{
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({'success':'added succesfully'});
+        }
+      });
+    }
+  });
+});
+
+adminRouter.get('/getusers', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) =>
+{
+      User.find({})
+        .then((users) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(users);
+          //console.log(users);
+      }, (err) => next(err))
+      .catch((err) => next(err));
 })
 
 // authenticate.verifyUser, authenticate.verifyAdmin

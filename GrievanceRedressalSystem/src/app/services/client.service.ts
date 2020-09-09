@@ -7,6 +7,7 @@ import { Member } from '../shared/member';
 import { Category } from '../shared/category';
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
+import { User } from '../shared/user';
 
 interface TicketResponse {
   success : string;
@@ -114,6 +115,11 @@ export class ClientService {
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(baseURL + 'admin/getusers')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
   getMemberByName(name : string ) : Observable<Member> {
     return this.http.get<Member>(baseURL + 'admin/getmemberbyname/' + name )
     .pipe(catchError(this.processHTTPMsgService.handleError));
@@ -131,5 +137,24 @@ export class ClientService {
     }),
     catchError(error => this.processHTTPMsgService.handleError(error)));
   }
+
+  addClient(user : any):Observable<any> {
+    console.log("inside client service");
+    return this.http.post<TicketResponse>(baseURL + 'admin/addnewuser',
+    { 'firstname':user.firstname, 'lastname':user.lastname, 'username': user.username, 'password':user.password })
+    .pipe(map(res => {
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
+  }
+
+  deleteMember(id : string):Observable<any> {
+    return this.http.delete<TicketResponse>(baseURL + 'admin/deletemember/' + id)
+    .pipe(map(res => {
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
+  }
+
 
 }

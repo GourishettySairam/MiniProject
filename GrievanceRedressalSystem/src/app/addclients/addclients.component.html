@@ -1,0 +1,51 @@
+<br>
+<div class="container">
+  <div *ngIf="isClientAdded" class="card w-75 text-white bg-dark mb-3" >
+    <div class="card-header"></div>
+    <div class="card-body">
+      <h5 class="card-title text-center">Client Added</h5><br>
+      <button class="btn bg-light w-100" (click)="addAnotherClient()">Add Another Member</button>
+    </div>
+  </div>
+  <div class="card" *ngIf="!isClientAdded" style="width:98%">
+    <h5 class="card-header text-center">Add Clients</h5><br>
+    <form #Form="ngForm">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="First Name" name="firstname" [(ngModel)]="user.firstname">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Last Name" name="lastame" [(ngModel)]="user.lastname">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="user.username">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password">
+        </div>
+      </div>
+        <br>
+        <button class="btn btn-primary w-100" (click)="addClient()">Add Client</button>
+    </form>
+  </div>
+  <br>
+  <hr style="background-color:red;width:96%"><br>
+  <button class="btn btn-primary " (click)="showUsersOnClick()" style="width:98%">Manage Existing Clients</button><br><br>
+  <div class="card w-100" *ngIf="showUsers">
+    <div class="form-row" *ngFor="let member of Users">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="{{member.firstname}}" name="id" disabled>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="{{member.email}}" name="name" disabled>
+      </div>
+      <div class="col" style="width:95%">
+        <input type="text" class="form-control" placeholder="{{member.username}}" name="department" disabled>
+      </div>
+      <div class="col text-center">
+        <button class="btn btn-danger w-75" (click)="deleteUser(member.username)">Delete</button>
+      </div><br><br>
+    </div>
+  </div>
+
+</div>

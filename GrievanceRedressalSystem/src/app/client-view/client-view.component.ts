@@ -14,16 +14,12 @@ export class ClientViewComponent implements OnInit {
   isTicketCreated:boolean=false;
 
   constructor(private clientService : ClientService,private authService : AuthService) {
-    //this.username='';
     this.username = this.authService.give();
     console.log("username is " + this.username);
     console.log("inside constructor");
-
     this.clientService.getCount()
     .subscribe((res)=>{this.count=res.count+1});
-
-    console.log(this.count);
-
+    //console.log(this.count);
   }
 
   ngOnInit(): void {
