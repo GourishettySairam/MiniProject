@@ -131,6 +131,18 @@ adminRouter.get('/getclosedcount', cors.corsWithOptions,authenticate.verifyUser,
    });
 })
 
+adminRouter.get('/gettodayscount/:date', cors.corsWithOptions, (req,res,next) => {
+  Clients.count({'createdat': {'$gte': new Date(req.params.date)}}, function(err, result) {
+     if (err) {
+       console.log(err);
+     } else {
+       //console.log('number is ' +  result);
+       res.json({'count':result});
+     }
+   });
+})
+
+
 adminRouter.get('/getassignedcount', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) => {
   Clients.count({'assignedto': { $ne : ''} }, function(err, result) {
      if (err) {
@@ -231,6 +243,94 @@ adminRouter.get('/getusers', cors.corsWithOptions,authenticate.verifyUser, authe
       }, (err) => next(err))
       .catch((err) => next(err));
 })
+
+adminRouter.get('/totaltickets/:startDate',cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) =>
+{
+Clients.find({'createdat': {'$gte': new Date("2020-05-01"), '$lt':new Date("2020-09-30")}}).then(result => {
+        let newMonthsArray= new Array();
+        let monthwise = new Array();
+        let monthsArray = ['January','February','March','April','May','June','July','August','September','October', 'November','December'];
+        let months = {};
+        for(let i=parseInt(req.params.startDate.substring(5,7))-1; i<12; i++){
+            let year = parseInt(req.params.startDate.substring(0,4))-1;
+            let month = parseInt(req.params.startDate.substring(5,7));
+            newMonth = monthsArray[i] + '-' + year;
+            newMonthsArray.push(newMonth);
+            months[newMonth] = 0;
+        }
+
+        for(let i=0; i<parseInt(req.params.startDate.substring(5,7)); i++){
+            let year = parseInt(req.params.startDate.substring(0,4));
+            let month = parseInt(req.params.startDate.substring(5,7));
+            newMonth = monthsArray[i] + '-' + year;
+            newMonthsArray.push(newMonth);
+            months[newMonth] = 0;
+          }
+
+        for(i=0; i<result.length; i++){
+            let getDate = result[i].createdat.toISOString();
+            let year = getDate.substring(0,4);
+            let month = parseInt(getDate.substring(5,7));
+            let monthName = monthsArray[month-1];
+            let date =  monthName + '-' + year;
+            let count = Number(months[date]) + 1;
+            months[date] = count;
+        }
+         var monthnames = Object.keys(months);
+         console.log(monthnames);
+
+        var values = Object.values(months);
+        console.log(monthnames);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({months : monthnames,count : values});
+    })
+  })
+
+  adminRouter.get('/closedtickets/:startDate',cors.corsWithOptions,(req,res,next) =>
+  {
+  Clients.find({'status':'Closed','createdat': {'$gte': new Date("2020-05-01"), '$lt':new Date("2020-09-30")}}).then(result => {
+          let newMonthsArray= new Array();
+          let monthwise = new Array();
+          let monthsArray = ['January','February','March','April','May','June','July','August','September','October', 'November','December'];
+          let months = {};
+          for(let i=parseInt(req.params.startDate.substring(5,7))-1; i<12; i++){
+              let year = parseInt(req.params.startDate.substring(0,4))-1;
+              let month = parseInt(req.params.startDate.substring(5,7));
+              newMonth = monthsArray[i] + '-' + year;
+              newMonthsArray.push(newMonth);
+              months[newMonth] = 0;
+          }
+
+          for(let i=0; i<parseInt(req.params.startDate.substring(5,7)); i++){
+              let year = parseInt(req.params.startDate.substring(0,4));
+              let month = parseInt(req.params.startDate.substring(5,7));
+              newMonth = monthsArray[i] + '-' + year;
+              newMonthsArray.push(newMonth);
+              months[newMonth] = 0;
+            }
+
+          for(i=0; i<result.length; i++){
+              let getDate = result[i].createdat.toISOString();
+              let year = getDate.substring(0,4);
+              let month = parseInt(getDate.substring(5,7));
+              let monthName = monthsArray[month-1];
+              let date =  monthName + '-' + year;
+              let count = Number(months[date]) + 1;
+              months[date] = count;
+          }
+           var monthnames = Object.keys(months);
+           console.log(monthnames);
+
+          var values = Object.values(months);
+          console.log(monthnames);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({months : monthnames,count : values});
+      })
+    })
+
+
 
 // authenticate.verifyUser, authenticate.verifyAdmin
 

@@ -17,6 +17,11 @@ interface Count {
   count : number;
 }
 
+interface monthcount {
+  months : string[],
+  count : number[]
+}
+
 
 
 @Injectable({
@@ -73,6 +78,17 @@ export class ClientService {
 
   getClosedCount(): Observable<any> {
     return this.http.get<any>(baseURL + 'admin/getclosedcount')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getTodaysCount(): Observable<any> {
+    //Date d = new Date();
+    var x = new Date().getDate();
+    var y = new Date().getMonth()+1;
+    var z = new Date().getFullYear();
+    console.log(x + " " + y + " " + z);
+    var date = z+"-"+y+"-"+x;
+    return this.http.get<any>(baseURL + 'admin/gettodayscount/' + date )
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
@@ -155,6 +171,18 @@ export class ClientService {
     }),
     catchError(error => this.processHTTPMsgService.handleError(error)));
   }
+
+  monthWiseCount(): Observable<monthcount> {
+    return this.http.get<monthcount>(baseURL + 'admin/totaltickets/' + '2020-09-01')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  monthWiseClosedCount(): Observable<monthcount> {
+    return this.http.get<monthcount>(baseURL + 'admin/closedtickets/' + '2020-09-01')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+
 
 
 }

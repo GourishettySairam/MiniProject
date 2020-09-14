@@ -87,4 +87,22 @@ clientRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,(re
 });
 
 
+clientRouter.get('/date',cors.corsWithOptions,(req,res,next) =>
+{
+  Clients.find({'createdat': {'$gte': new Date("2020-09-08"), '$lt':new Date("2020-09-09")}})
+  .then((tickets) => {
+    // console.log(tickets[1].createdat.getDate());
+    // console.log(tickets[1].createdat.getMonth());
+    // console.log(tickets[1].createdat.getFullYear());
+    // console.log(tickets[1].createdat.getHours());
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(tickets);
+    console.log(tickets);
+}, (err) => next(err))
+.catch((err) => next(err));
+})
+
+
+
 module.exports = clientRouter ;

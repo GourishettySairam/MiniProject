@@ -7,7 +7,7 @@
     <button class="text-lg btn w-100 btn-success" style="height:100px"><span class="h3">{{assignedTicketCount}} Assigned Tickets</span></button>
   </div>
   <div class=" col-sm-3 offset-md-0 col-md-3 col-lg-3 ">
-    <button class="btn  w-100 btn-danger" style="height:100px"><span class="h3">Tickets Today</span></button>
+    <button class="btn  w-100 btn-danger" style="height:100px"><span class="h3">{{todaysTicketCount}} Tickets Today</span></button>
   </div>
   <div class=" col-sm-3 offset-md-0 col-md-3 col-lg-3 ">
     <button class="btn btn-dark" style="height:100px;width:240px"><span class="h3">{{closedTicketCount}} Closed Tickets</span></button>
@@ -15,10 +15,10 @@
 <div>
 <br>
 <br>
-  <div class="row" style="display: block;">
+  <div class="row" style="display: block;" *ngIf="loaded">
     <canvas baseChart width="1150" height="400"
       [datasets]="lineChartData"
-      [labels]="lineChartLabels"
+      [labels]="monthArray"
       [options]="lineChartOptions"
       [colors]="lineChartColors"
       [legend]="lineChartLegend"
