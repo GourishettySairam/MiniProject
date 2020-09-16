@@ -200,6 +200,18 @@ adminRouter.delete('/deletemember/:id', cors.corsWithOptions, authenticate.verif
   })
 })
 
+adminRouter.delete('/deleteuser/:id', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+  User.deleteOne({'_id':req.params.id}, function (err) {
+    if(err) console.log(err);
+    else{
+      console.log("user deleted");
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({'success':'deleted'});
+    }
+  })
+})
+
 adminRouter.post('/addnewuser',cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
   User.register(new User({username: req.body.username}),
     req.body.password, (err, user) => {
@@ -215,6 +227,9 @@ adminRouter.post('/addnewuser',cors.corsWithOptions,authenticate.verifyUser, aut
         user.firstname = req.body.firstname;
       if (req.body.lastname)
         user.lastname = req.body.lastname;
+        user.isVerified = req.body.isVerified;
+      if(req.body.email)
+        user.email = req.body.email;
       user.save((err, user) => {
         if (err) {
           res.statusCode = 500;
@@ -236,6 +251,20 @@ adminRouter.get('/getusers', cors.corsWithOptions,authenticate.verifyUser, authe
 {
       User.find({})
         .then((users) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(users);
+          //console.log(users);
+      }, (err) => next(err))
+      .catch((err) => next(err));
+})
+
+adminRouter.get('/getuseremail/:username', cors.corsWithOptions, authenticate.verifyUser, (req, res, next) =>
+{
+      User.find({'username':req.params.username})
+        .then((users) => {
+          console.log(users);
+          //console.log(users.email);
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(users);

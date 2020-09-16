@@ -15,10 +15,10 @@
           <input type="text" class="form-control" placeholder="First Name" name="firstname" [(ngModel)]="user.firstname">
         </div>
         <div class="col">
-          <input type="text" class="form-control" placeholder="Last Name" name="lastame" [(ngModel)]="user.lastname">
+          <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="user.username">
         </div>
         <div class="col">
-          <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="user.username">
+          <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="user.email">
         </div>
         <div class="col">
           <input type="text" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password">
@@ -40,7 +40,7 @@
         <input type="text" class="form-control" placeholder="{{member.email}}" name="name" disabled>
       </div>
       <div class="col" style="width:95%">
-        <input type="text" class="form-control" placeholder="{{member.username}}" name="department" disabled>
+        <input type="text" class="form-control" placeholder="{{member.username}}" name="username" disabled>
       </div>
       <div class="col text-center">
         <button class="btn btn-danger w-75" (click)="deleteUser(member.username)">Delete</button>

@@ -73,4 +73,37 @@ emailRouter.post('/notifymember/:mail', cors.corsWithOptions, (req, res, next) =
      });
 });
 
+emailRouter.get('/notifyclient/:mail', cors.corsWithOptions,authenticate.verifyUser, (req, res, next) => {
+
+    var email = req.params.mail;
+    var transporter = nodemailer.createTransport({
+     service: 'gmail',
+     auth: {
+            user: 'sairamgourishetty99@gmail.com',
+            pass: ')7)8i)h6g'
+        }
+    });
+
+    const mailOptions = {
+      from: 'sairamgourishetty99@gmail.com', // sender address
+      to: email, // list of receivers
+      subject: 'Complaint Resolved', // Subject line
+      html: '<p>Your complaint has been solved . Please login into the website to check complete details</p>'// plain text body
+    };
+
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+       {
+         console.log(err);
+         console.log(req);
+       }
+       else
+       {
+         res.statusCode = 200;
+         res.setHeader('Content-Type', 'application/json');
+         res.send({'status':'success'})
+       }
+     });
+});
+
 module.exports = emailRouter;

@@ -39,11 +39,30 @@ export class TicketDetailComponent implements OnInit {
     console.log('reply updating');
     this.ticket.message = this.replyMessage;
     this.ticket.lastupdatedat = new Date();
+    if(this.ticket.status == 'Closed'){
+      this.ticket.assignedto = '';
+    }
     this.clientService.updateTicket(this.ticket)
     .subscribe(res => {
         if(res.success){
           this.replyMessage = "";
           console.log("Ticket Updated");
+          if(this.ticket.status == 'Closed'){
+            console.log('should notify the client');
+            this.clientService.getUserEmail(this.ticket.firstname)
+            .subscribe((res) => {
+              if(res){
+                console.log("user notified succesfully");
+                console.log(res);
+                console.log(res[0].email);
+                this.clientService.notifyClient(res[0].email)
+                .subscribe((res)=>{console.log(res)});
+              }
+              else{
+                console.log("error notifying user");
+              }
+            })
+          }
           if(this.assignedto === '')
           {
             console.log("inside if block");

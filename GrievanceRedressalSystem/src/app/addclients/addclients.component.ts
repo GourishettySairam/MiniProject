@@ -15,7 +15,7 @@ export class AddclientsComponent implements OnInit {
   constructor(private clientService : ClientService) { }
 
   Users : User[];
-  user = { firstname:'', lastname:'', username:'', password:''};
+  user = { firstname:'', email:'', username:'', password:''};
 
   ngOnInit(): void {
     this.clientService.getUsers()
@@ -30,7 +30,7 @@ export class AddclientsComponent implements OnInit {
       console.log("client added successfully");
       this.isClientAdded = true;
       this.user.firstname = '',
-      this.user.lastname = '',
+      this.user.email = '',
       this.user.username = '',
       this.user.password = ''
     })
@@ -43,6 +43,16 @@ export class AddclientsComponent implements OnInit {
   deleteUser(username : any){
     alert("delete this username. This action cannot be undone");
     console.log("user deleted");
+    console.log(username);
+
+    this.clientService.getUserEmail(username).subscribe((res) => {
+      if(res){
+        console.log(res);
+        this.clientService.deleteUser(res[0]._id).subscribe((resin)=>{
+          console.log(resin);
+        })
+      }
+    })
   }
 
   showUsersOnClick(){

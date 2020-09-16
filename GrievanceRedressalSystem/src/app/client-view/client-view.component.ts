@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import { AuthService } from '../services/auth.service';
+import { Category } from '../shared/category';
 
 @Component({
   selector: 'app-client-view',
@@ -12,6 +13,7 @@ export class ClientViewComponent implements OnInit {
   username:String;
   count:any;
   isTicketCreated:boolean=false;
+  category : Category[];
 
   constructor(private clientService : ClientService,private authService : AuthService) {
     this.username = this.authService.give();
@@ -19,6 +21,8 @@ export class ClientViewComponent implements OnInit {
     console.log("inside constructor");
     this.clientService.getCount()
     .subscribe((res)=>{this.count=res.count+1});
+
+    this.clientService.getCategories().subscribe((res)=>{this.category = res;console.log('categories ' + this.category);});
     //console.log(this.count);
   }
 

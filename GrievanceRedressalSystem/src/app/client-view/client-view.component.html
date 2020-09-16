@@ -41,12 +41,13 @@
   <label for="category">Category</label>
   <br>
 <select class="dropdown-item bg-light dropdown-toggle w-100" name = "category" [(ngModel)]="ticket.category">
-  <option class="w-100 dropdown-item" >General</option>
+  <!-- <option class="w-100 dropdown-item" >General</option>
   <option class="w-100 dropdown-item" >Courses</option>
   <option class="w-100 dropdown-item" >Registration</option>
   <option class="w-100 dropdown-item" >Administration</option>
   <option class="w-100 dropdown-item" >Finance</option>
-  <option class="w-100 dropdown-item" >Placement</option>
+  <option class="w-100 dropdown-item" >Placement</option> -->
+  <option class="w-100 dropdown-item" *ngFor="let cat of category">{{cat.categoryname}}</option>
 </select>
 </div>
 

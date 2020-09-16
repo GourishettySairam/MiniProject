@@ -24,6 +24,8 @@ interface monthcount {
 
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -136,6 +138,18 @@ export class ClientService {
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
+  getUserEmail(username : string): Observable<User> {
+    console.log('inside service ' + username);
+    return this.http.get<User>(baseURL + 'admin/getuseremail/' + username )
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  notifyClient(email : string): Observable<any>{
+    console.log('inside service ' + email);
+    return this.http.get(baseURL + 'email/notifyclient/' + email)
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
   getMemberByName(name : string ) : Observable<Member> {
     return this.http.get<Member>(baseURL + 'admin/getmemberbyname/' + name )
     .pipe(catchError(this.processHTTPMsgService.handleError));
@@ -157,7 +171,7 @@ export class ClientService {
   addClient(user : any):Observable<any> {
     console.log("inside client service");
     return this.http.post<TicketResponse>(baseURL + 'admin/addnewuser',
-    { 'firstname':user.firstname, 'lastname':user.lastname, 'username': user.username, 'password':user.password })
+    { 'firstname':user.firstname, 'username': user.username, 'email': user.email, 'password':user.password, 'isVerified':true })
     .pipe(map(res => {
       return { 'success' : true };
     }),
@@ -166,6 +180,14 @@ export class ClientService {
 
   deleteMember(id : string):Observable<any> {
     return this.http.delete<TicketResponse>(baseURL + 'admin/deletemember/' + id)
+    .pipe(map(res => {
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
+  }
+
+  deleteUser(id : string):Observable<any> {
+    return this.http.delete<TicketResponse>(baseURL + 'admin/deleteuser/' + id)
     .pipe(map(res => {
       return { 'success' : true };
     }),

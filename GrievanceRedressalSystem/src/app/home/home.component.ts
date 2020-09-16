@@ -11,15 +11,15 @@ export class HomeComponent implements OnInit {
   count:number;
 
   constructor(private clientService : ClientService) {
-    this.clientService.getCount()
-    .subscribe((res)=>{this.count=res.count});
+    // this.clientService.getCount()
+    // .subscribe((res)=>{this.count=res.count});
   }
 
   ngOnInit(): void {
   }
 
   getCount(){
-    console.log(this.count);
+    //console.log(this.count);
   }
 
 }

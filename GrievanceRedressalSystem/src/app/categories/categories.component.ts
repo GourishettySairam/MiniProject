@@ -27,7 +27,13 @@ export class CategoriesComponent implements OnInit {
   addCategory(){
     console.log(this.postCategory);
     this.clientService.addCategories(this.postCategory)
-    .subscribe((res)=>console.log(res));
+    .subscribe((res)=>{
+      if(res.success){
+        this.postCategory.categoryname = '';
+        this.postCategory.head = '';
+      }
+      //console.log(res));
+    })
   }
 
 }
