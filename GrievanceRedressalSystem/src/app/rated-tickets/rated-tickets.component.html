@@ -1,0 +1,28 @@
+<br>
+<div class="card" style="width:98%">
+  <button class="btn btn-primary w-100" (click)="getAllTickets()">View Rated Tickets</button>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Rating</th>
+        <th>Status</th>
+        <th>Category</th>
+        <th>User</th>
+        <th>Assigned To</th>
+        <th>Last Reply</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ticket.title}}</td>
+        <td>{{ticket.rating}}</td>
+        <td>{{ticket.status}}</td>
+        <td>{{ticket.category}}</td>
+        <td>{{ticket.firstname}}</td>
+        <td>{{ticket.assignedto}}</td>
+        <td>{{ticket.message}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

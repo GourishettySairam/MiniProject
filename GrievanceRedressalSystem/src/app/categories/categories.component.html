@@ -19,7 +19,7 @@
           <input type="text" class="form-control" placeholder='{{cat.head}}' name="head" disabled>
         </div>
         <div class="col">
-          <button class="btn btn-danger w-75 text-center">Delete Category</button>
+          <button class="btn btn-danger w-75 text-center" (click)="deleteCategory(cat._id)">Delete Category</button>
         </div>
         <br><br>
       </div><br>

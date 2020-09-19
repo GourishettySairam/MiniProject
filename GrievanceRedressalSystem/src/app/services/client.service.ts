@@ -68,6 +68,11 @@ export class ClientService {
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
+  getRatedTickets(): Observable<Ticket[]> {
+    return this.http.get<Ticket[]>(baseURL + 'admin/getratedtickets')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
   getAssignedTickets(username:String): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(baseURL + 'client/getassignedtickets/' + username)
     .pipe(catchError(this.processHTTPMsgService.handleError));
@@ -180,6 +185,15 @@ export class ClientService {
 
   deleteMember(id : string):Observable<any> {
     return this.http.delete<TicketResponse>(baseURL + 'admin/deletemember/' + id)
+    .pipe(map(res => {
+      return { 'success' : true };
+    }),
+    catchError(error => this.processHTTPMsgService.handleError(error)));
+  }
+
+  deleteCategory(id : string):Observable<any> {
+    console.log(baseURL + 'admim/deletecategory/' + id);
+    return this.http.delete<TicketResponse>(baseURL + 'admin/deletecategory/' + id)
     .pipe(map(res => {
       return { 'success' : true };
     }),

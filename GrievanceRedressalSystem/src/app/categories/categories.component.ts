@@ -36,4 +36,13 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
+  deleteCategory(id : string){
+    alert("Confirm deleting category. This action cannot be undone");
+    console.log(id);
+    this.clientService.deleteCategory(id).subscribe((res)=>{console.log(res)},
+    error => {
+    console.log("error occcured");
+    })
+  }
+
 }

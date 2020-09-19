@@ -24,6 +24,17 @@ adminRouter.get('/gettickets', cors.corsWithOptions,authenticate.verifyUser ,aut
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.json(tickets);
+      }, (err) => next(err))
+      .catch((err) => next(err));
+})
+
+adminRouter.get('/getratedtickets', cors.corsWithOptions, authenticate.verifyUser,authenticate.verifyAdmin, (req, res, next) =>
+{
+      Clients.find({'rating': { $ne : 0 } })
+        .then((tickets) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(tickets);
           // console.log(tickets);
           // console.log("sairam is trying to get tickets");
       }, (err) => next(err))
@@ -165,7 +176,7 @@ adminRouter.post('/addcategory', cors.corsWithOptions, authenticate.verifyUser, 
   .catch((err) => next(err));
 })
 
-adminRouter.get('/getcategories', cors.corsWithOptions, (req,res,next) =>
+adminRouter.get('/getcategories', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) =>
 {
   Categories.find({})
     .then((categories) => {
@@ -182,6 +193,18 @@ adminRouter.delete('/deleteticket/:id', cors.corsWithOptions,authenticate.verify
     if(err) console.log(err);
     else{
       res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({'success':'deleted'});
+    }
+  })
+})
+
+adminRouter.delete('/deletecategory/:id', cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+  Categories.deleteOne({'_id':req.params.id}, function (err) {
+    if(err) console.log(err);
+    else{
+      res.statusCode = 200;
+      console.log('deleted');
       res.setHeader('Content-Type', 'application/json');
       res.json({'success':'deleted'});
     }
