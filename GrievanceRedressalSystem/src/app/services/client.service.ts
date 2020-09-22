@@ -22,6 +22,11 @@ interface monthcount {
   count : number[]
 }
 
+interface categoryCount {
+  category : string[],
+  count : number[]
+}
+
 
 
 
@@ -215,6 +220,11 @@ export class ClientService {
 
   monthWiseClosedCount(): Observable<monthcount> {
     return this.http.get<monthcount>(baseURL + 'admin/closedtickets/' + '2020-09-01')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  getEachCategoryCount(): Observable<categoryCount> {
+    return this.http.get<categoryCount>(baseURL + 'admin/geteachcategorycount/')
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 

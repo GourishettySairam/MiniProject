@@ -1,0 +1,14 @@
+<br>
+<h2 class="text-center"> Number of Tickets raised Category Wise </h2>
+<br>
+  <div class="row" style="display: block;" *ngIf="loaded">
+    <canvas baseChart width="1150" height="400"
+      [datasets]="lineChartData"
+      [labels]="catArray"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins">
+    </canvas>
+  </div>

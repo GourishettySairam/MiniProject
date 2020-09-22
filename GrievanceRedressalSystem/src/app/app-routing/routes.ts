@@ -14,6 +14,7 @@ import { AddmembersComponent } from '../addmembers/addmembers.component';
 import { CategoriesComponent } from '../categories/categories.component';
 import { AddclientsComponent } from '../addclients/addclients.component';
 import { RatedTicketsComponent } from '../rated-tickets/rated-tickets.component';
+import { TicketReportComponent } from '../ticket-report/ticket-report.component';
 
 export const routes : Routes = [
   { path : 'users', component : AppComponent },
@@ -30,5 +31,6 @@ export const routes : Routes = [
   { path:'tickets/categories', component: CategoriesComponent },
   { path:'admin/addclients', component: AddclientsComponent },
   { path:'reports/ratedtickets', component: RatedTicketsComponent },
+  { path:'reports/ticketreports', component: TicketReportComponent },
   { path: '', redirectTo:'/home', pathMatch:'full' }
 ];

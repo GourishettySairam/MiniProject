@@ -7,6 +7,7 @@ var config = require('../config');
 const cors = require('./cors');
 var Clients = require('../models/client');
 var mongoose = require('mongoose');
+var Categories = require('../models/category');
 
 var clientRouter = express.Router();
 clientRouter.use(bodyParser.json());
@@ -78,6 +79,14 @@ clientRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,(re
 {
       Clients.create(req.body)
       .then((dish) => {
+          Categories.find({'categoryname':req.body.category})
+                    .then((category)=>{
+                                        category[0].count = category[0].count + 1;
+                                        category[0].save()
+                                                .then((ticket) => {
+                                                  console.log("success in saving");
+                                                },(err) => next(err))
+                                      },(err) => next(err))
           console.log('Ticket Created ', dish);
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');

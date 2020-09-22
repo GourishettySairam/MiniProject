@@ -64,7 +64,7 @@ adminRouter.post('/postticket',cors.corsWithOptions,authenticate.verifyUser,auth
       .catch((err) => next(err));
 });
 
-adminRouter.put('/changeticket/:ticketId',cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next) =>
+adminRouter.put('/changeticket/:ticketId',cors.corsWithOptions,authenticate.verifyUser,(req,res,next) =>
 {
   Clients.findOne({'id':req.params.ticketId})
   .then((ticket) => {
@@ -176,7 +176,7 @@ adminRouter.post('/addcategory', cors.corsWithOptions, authenticate.verifyUser, 
   .catch((err) => next(err));
 })
 
-adminRouter.get('/getcategories', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) =>
+adminRouter.get('/getcategories', cors.corsWithOptions, authenticate.verifyUser, (req,res,next) =>
 {
   Categories.find({})
     .then((categories) => {
@@ -382,6 +382,24 @@ Clients.find({'createdat': {'$gte': new Date("2020-05-01"), '$lt':new Date("2020
       })
     })
 
+adminRouter.get('/geteachcategorycount', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) =>
+{
+      Categories.find({})
+        .then((result) => {
+          let catname = new Array();
+          let valcount = new Array();
+          for(i=0; i<result.length; i++){
+              catname.push(result[i].categoryname);
+              valcount.push(result[i].count);
+          }
+          console.log(catname);
+          console.log(valcount);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({'category':catname , 'count':valcount});
+      }, (err) => next(err))
+      .catch((err) => next(err));
+})
 
 
 // authenticate.verifyUser, authenticate.verifyAdmin

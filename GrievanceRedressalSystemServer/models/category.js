@@ -11,6 +11,11 @@ var categorySchema = new Schema({
   head: {
     type: String,
     default: ''
+  },
+
+  count: {
+    type: Number,
+    default : 0
   }
 },
 {
