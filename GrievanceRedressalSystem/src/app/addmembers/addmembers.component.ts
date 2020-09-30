@@ -20,26 +20,30 @@ export class AddmembersComponent implements OnInit {
   ngOnInit(): void {
     this.clientService.getMembers()
     .subscribe(members => {this.members = members;console.log(this.members)},
-    errmess => {console.log(errmess)});
+    errmess => {this.getMembersError = 'Login as Admin to view this page'});
   }
 
+  getMembersError : string;
+  errInAddingMembers : string;
+  errInDeletingMembers : string;
+
   addMember(){
+    if(this.member.name && this.member.email && this.member.department){
     this.clientService.addmember(this.member)
     .subscribe((res) => {
-      if(res.success){
         console.log("member added ");
         this.isMemberAdded = true;
         this.member.name = '';
         this.member.email='';
         this.member.department='';
-      }
-      else{
-        console.log("unable to add member ");
-      }
-    },
-    error => {
-    console.log("error occcured");
+        this.errInAddingMembers = ''
+      },
+      error => { this.errInAddingMembers = 'Unable to add Member, Please try again';
     })
+  }
+  else{
+    this.errInAddingMembers = 'Unable to add Member, Please try again';
+  }
   }
 
   addAnotherMember(){
@@ -52,8 +56,11 @@ export class AddmembersComponent implements OnInit {
     this.clientService.deleteMember(id).subscribe((res)=>{console.log(res)
     },
     error => {
-    console.log("error occcured");
+    this.errInDeletingMembers = 'Member cannot be deleted. Please try again'
     })
+    if(this.errInDeletingMembers){
+      alert(this.errInDeletingMembers);
+    }
   }
 
   showMembersOnClick(){

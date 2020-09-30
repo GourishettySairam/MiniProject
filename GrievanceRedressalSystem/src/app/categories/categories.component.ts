@@ -13,27 +13,37 @@ export class CategoriesComponent implements OnInit {
   postCategory = {categoryname:'',head:''};
   categoryname:'';
   head:'';
+  getCategoriesError : string;
+  errInAddingCategories : string;
+  errInDeletingCategories : string;
 
   constructor(private clientService : ClientService) {
-      this.clientService.getCategories().subscribe((res)=> {
-        this.category = res;
-        console.log(this.category);
-      })
-  }
+        }
 
   ngOnInit(): void {
+    this.clientService.getCategories().subscribe((res)=> {
+      this.category = res;
+      console.log(this.category);
+    },
+    errmess => {this.getCategoriesError = 'Login as Admin to view this page';console.log(this.getCategoriesError)})
+
   }
 
   addCategory(){
     console.log(this.postCategory);
+    if(this.postCategory.categoryname && this.postCategory.head){
     this.clientService.addCategories(this.postCategory)
     .subscribe((res)=>{
       if(res.success){
         this.postCategory.categoryname = '';
         this.postCategory.head = '';
+        this.errInAddingCategories='';
       }
-      //console.log(res));
-    })
+    },err => { this.errInAddingCategories = 'Unable to add Category, Please try again';})
+  }
+  else{
+    this.errInAddingCategories = 'Unable to add Category, Please try again';
+  }
   }
 
   deleteCategory(id : string){

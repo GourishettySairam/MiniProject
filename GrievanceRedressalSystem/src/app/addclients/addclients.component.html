@@ -1,5 +1,14 @@
 <br>
+
 <div class="container">
+<div *ngIf="getUsersError" class="card w-100">
+  <div class="card-body bg-danger text-white text-center">
+    {{ getUsersError }}
+  </div>
+</div>
+</div>
+
+<div class="container" *ngIf="!getUsersError">
   <div *ngIf="isClientAdded" class="card w-75 text-white bg-dark mb-3" >
     <div class="card-header"></div>
     <div class="card-body">
@@ -27,6 +36,12 @@
         <br>
         <button class="btn btn-primary w-100" (click)="addClient()">Add Client</button>
     </form>
+  </div>
+  <br>
+  <div *ngIf="errInAddingClients" class="card w-100">
+    <div class="card-body bg-danger text-white text-center">
+      {{ errInAddingClients }}
+    </div>
   </div>
   <br>
   <hr style="background-color:red;width:96%"><br>

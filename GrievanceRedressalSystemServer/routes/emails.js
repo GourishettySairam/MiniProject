@@ -7,10 +7,11 @@ var authenticate = require('../authenticate');
 var passport = require('passport');
 var User = require('../models/user');
 const bodyParser = require('body-parser');
+var Clients = require('../models/client');
 
 emailRouter.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); } )
 
-emailRouter.get('/send', cors.corsWithOptions, (req, res, next) => {
+emailRouter.get('/send/:id', cors.corsWithOptions, (req, res, next) => {
 
     var transporter = nodemailer.createTransport({
      service: 'gmail',
@@ -24,7 +25,7 @@ emailRouter.get('/send', cors.corsWithOptions, (req, res, next) => {
       from: 'sairamgourishetty99@gmail.com', // sender address
       to: 'sairamgourishetty99@gmail.com', // list of receivers
       subject: 'New Ticket', // Subject line
-      html: '<p>New Ticket Created</p>'// plain text body
+      html: '<h3>New Ticket is created with Ticket Id ' + req.params.id + '.</h3><br>Please login into the portal to check it'
     };
 
     transporter.sendMail(mailOptions, function (err, info) {

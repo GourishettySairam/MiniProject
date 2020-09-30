@@ -1,5 +1,14 @@
 <br>
+
 <div class="container">
+<div *ngIf="getCategoriesError" class="card w-100">
+  <div class="card-body bg-danger text-white text-center">
+    {{ getCategoriesError }}
+  </div>
+</div>
+</div>
+
+<div class="container" *ngIf="!getCategoriesError">
   <div class="card"  style="width:98%">
     <br>
     <form >
@@ -38,6 +47,13 @@
         <br>
         <button class="btn btn-primary w-100" (click)="addCategory()" >Add Category</button>
     </form>
+    <br>
+
+    <div *ngIf="errInAddingCategories" class="card w-100">
+      <div class="card-body bg-danger text-white text-center">
+        {{ errInAddingCategories }}
+      </div>
+    </div>
 
     <div>
       <p ></p>

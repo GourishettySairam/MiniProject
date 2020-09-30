@@ -45,14 +45,14 @@ export class ClientViewComponent implements OnInit {
     .subscribe(res => {
       if(res.success){
         console.log("Ticket Created");
-        this.ticket.id='';
         this.ticket.subject = '';
         this.ticket.priority='';
         this.ticket.category='';
         this.ticket.message='';
         this.isTicketCreated=!this.isTicketCreated;
-        this.clientService.notifyAdmin()
+        this.clientService.notifyAdmin(this.ticket.id+'')
         .subscribe(res => { console.log('email sent')});
+		this.ticket.id='';
       }
       else {
         console.log("Unable to create ticket");

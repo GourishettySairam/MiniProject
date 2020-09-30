@@ -14,7 +14,7 @@
         <th>Options</th>
       </tr>
     </thead>
-    <h3 *ngIf="errMessage">{{errMessage}}</h3>
+    <!-- <h3 *ngIf="errMessage">{{errMessage}}</h3> -->
     <tbody>
       <tr *ngFor="let ticket of tickets">
         <td>{{ticket.id}}</td>
@@ -28,4 +28,11 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+
+<div *ngIf="errMessage" class="card" style="width:98%">
+  <div class="card-body bg-danger text-white text-center">
+    {{ errMessage }}
+  </div>
 </div>

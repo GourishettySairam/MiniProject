@@ -19,10 +19,9 @@ export class AllTicketsComponent implements OnInit {
   errMessage : string;
 
   getAllTickets(){
-    //console.log("inside get tickets");
     this.clientService.getAllTickets()
-    .subscribe(tickets => {this.tickets = tickets;console.log(this.tickets)},
-    errmess => {this.errMess = <any>errmess;;this.errMessage='Only admins can see all the tickets'});
+    .subscribe(tickets => {this.tickets = tickets;console.log(this.tickets);this.errMessage = ''},
+    errmess => {this.errMessage='Only Admins can see all tickets'});
   }
 
   getTicketById(id:any){

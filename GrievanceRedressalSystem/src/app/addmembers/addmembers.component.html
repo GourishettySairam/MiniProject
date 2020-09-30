@@ -1,5 +1,14 @@
 <br>
+
 <div class="container">
+<div *ngIf="getMembersError" class="card w-100">
+  <div class="card-body bg-danger text-white text-center">
+    {{ getMembersError }}
+  </div>
+</div>
+</div>
+
+<div class="container" *ngIf="!getMembersError">
   <div *ngIf="isMemberAdded" class="card w-75 text-white bg-dark mb-3" >
     <div class="card-header"></div>
     <div class="card-body">
@@ -29,6 +38,12 @@
         <br>
         <button class="btn btn-primary w-100" (click)="addMember()">Add Member</button>
     </form>
+  </div>
+  <br>
+  <div *ngIf="errInAddingMembers" class="card w-100">
+    <div class="card-body bg-danger text-white text-center">
+      {{ errInAddingMembers }}
+    </div>
   </div>
   <br>
   <hr style="background-color:red;width:96%"><br>

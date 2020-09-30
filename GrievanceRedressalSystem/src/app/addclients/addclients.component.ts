@@ -12,15 +12,20 @@ export class AddclientsComponent implements OnInit {
   isClientAdded :boolean = false;
   showUsers : boolean = false;
 
-  constructor(private clientService : ClientService) { }
+  constructor(private clientService : ClientService) {
+    this.errInAddingClients = '';
+  }
 
   Users : User[];
   user = { firstname:'', email:'', username:'', password:''};
+  getUsersError : string;
+  errInAddingClients : string;
+  errInDeletingClients : string;
 
   ngOnInit(): void {
     this.clientService.getUsers()
     .subscribe(users => {this.Users = users;console.log(this.Users)},
-    errmess => {console.log(errmess)});
+    errmess => {this.getUsersError = 'Login as Admin to view this page';console.log(errmess)});
   }
 
   addClient(){
@@ -32,8 +37,9 @@ export class AddclientsComponent implements OnInit {
       this.user.firstname = '',
       this.user.email = '',
       this.user.username = '',
-      this.user.password = ''
-    })
+      this.user.password = '',
+      this.errInAddingClients = ''
+    },err => { this.errInAddingClients = 'Unable to add Client, Please try again';console.log(this.errInAddingClients);})
   }
 
   addAnotherClient(){
@@ -50,9 +56,12 @@ export class AddclientsComponent implements OnInit {
         console.log(res);
         this.clientService.deleteUser(res[0]._id).subscribe((resin)=>{
           console.log(resin);
-        })
+        }, err => this.errInDeletingClients = 'User cannot be deleted. Please try again')
       }
     })
+    if(this.errInDeletingClients){
+      alert(this.errInDeletingClients);
+    }
   }
 
   showUsersOnClick(){

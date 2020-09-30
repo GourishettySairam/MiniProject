@@ -44,7 +44,6 @@ export class AdmindashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //variable : monthcount ;
   loaded : boolean = false;
   variable={ months:[], dates:[]}
 
@@ -59,18 +58,6 @@ export class AdmindashboardComponent implements OnInit {
 
   public lineChartData : ChartDataSets[];
 
-
-  // public lineChartData: ChartDataSets[] = [
-  // { data: [this.countArray[0]], label: 'Series A' },
-  // { data: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0], label: 'Series B' }
-  // ];
-
-  // public lineChartData: ChartDataSets[] = [
-  // { data: this.variable.count, label: 'Series A' },
-  // { data: [100, 59, 80, 90, 56, 55, 42,55,89,72,63,47], label: 'Series B' }
-  // ];
-
-  //public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
   public lineChartLabels: Label[] = this.monthArray ;
   public lineChartOptions: (ChartOptions) = {
     responsive: true,
@@ -86,6 +73,3 @@ export class AdmindashboardComponent implements OnInit {
   public lineChartPlugins = [];
 
 }
-
-      //[labels]="lineChartLabels"
-      //[datasets]="lineChartData"

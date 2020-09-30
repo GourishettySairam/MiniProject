@@ -49,8 +49,9 @@ export class ClientService {
     //console.log("inside the client service");
   }
 
-  notifyAdmin():Observable<any> {
-    return this.http.get(baseURL + 'email/send')
+  notifyAdmin(id : string):Observable<any> {
+	console.log(baseURL + 'email/send/' + id);
+    return this.http.get(baseURL + 'email/send/' + id)
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
