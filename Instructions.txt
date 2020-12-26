@@ -1,0 +1,19 @@
+Go into the GrievanceRedressalSystem and run "npm install" to install all the dependencies.
+Go into the GrievanceRedressalSystemServer and run "npm install" to install all the dependancies.
+
+Go into GrievanceRedressalSystemServer\routes\email.js and enter your email details.
+
+
+To start the Angular server : ng serve
+To start the MongoDB server : mongod --dbpath=data --bind_ip 127.0.0.1
+To start the Express server : npm start
+
+Open the project in Editor only after starting the database server. Else the db file will be locked and db cannot run
+
+1st launch db
+then express server
+then angular server
+
+After opening the application in browser:
+	While login if you get error, Open developer tools and goto console.
+	Click on 3443:users/login and accept the certificate.

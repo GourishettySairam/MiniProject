@@ -215,12 +215,12 @@ export class ClientService {
   }
 
   monthWiseCount(): Observable<monthcount> {
-    return this.http.get<monthcount>(baseURL + 'admin/totaltickets/' + '2020-09-01')
+    return this.http.get<monthcount>(baseURL + 'admin/totaltickets/' + '2020-10-05')
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   monthWiseClosedCount(): Observable<monthcount> {
-    return this.http.get<monthcount>(baseURL + 'admin/closedtickets/' + '2020-09-01')
+    return this.http.get<monthcount>(baseURL + 'admin/closedtickets/' + '2020-10-05')
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 

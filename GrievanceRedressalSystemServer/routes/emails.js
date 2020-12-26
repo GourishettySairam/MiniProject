@@ -16,8 +16,8 @@ emailRouter.get('/send/:id', cors.corsWithOptions, (req, res, next) => {
     var transporter = nodemailer.createTransport({
      service: 'gmail',
      auth: {
-            user: 'sairamgourishetty99@gmail.com',
-            pass: ')7)8i)h6g'
+            user: 'yourEmail',
+            pass: 'abcdef'
         }
     });
 
@@ -47,8 +47,8 @@ emailRouter.post('/notifymember/:mail', cors.corsWithOptions, (req, res, next) =
     var transporter = nodemailer.createTransport({
      service: 'gmail',
      auth: {
-            user: 'sairamgourishetty99@gmail.com',
-            pass: ')7)8i)h6g'
+            user: 'abcdefgh',
+            pass: 'abcdef'
         }
     });
 
@@ -80,8 +80,8 @@ emailRouter.get('/notifyclient/:mail', cors.corsWithOptions,authenticate.verifyU
     var transporter = nodemailer.createTransport({
      service: 'gmail',
      auth: {
-            user: 'sairamgourishetty99@gmail.com',
-            pass: ')7)8i)h6g'
+            user: 'abcdefghi',
+            pass: 'abcdef'
         }
     });
 

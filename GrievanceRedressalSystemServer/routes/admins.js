@@ -298,7 +298,7 @@ adminRouter.get('/getuseremail/:username', cors.corsWithOptions, authenticate.ve
 
 adminRouter.get('/totaltickets/:startDate',cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req,res,next) =>
 {
-Clients.find({'createdat': {'$gte': new Date("2020-05-01"), '$lt':new Date("2020-09-30")}}).then(result => {
+Clients.find({'createdat': {'$gte': new Date("2020-06-01"), '$lt':new Date("2020-10-30")}}).then(result => {
         let newMonthsArray= new Array();
         let monthwise = new Array();
         let monthsArray = ['January','February','March','April','May','June','July','August','September','October', 'November','December'];
@@ -341,7 +341,7 @@ Clients.find({'createdat': {'$gte': new Date("2020-05-01"), '$lt':new Date("2020
 
   adminRouter.get('/closedtickets/:startDate',cors.corsWithOptions,(req,res,next) =>
   {
-  Clients.find({'status':'Closed','createdat': {'$gte': new Date("2020-05-01"), '$lt':new Date("2020-09-30")}}).then(result => {
+  Clients.find({'status':'Closed','createdat': {'$gte': new Date("2020-06-01"), '$lt':new Date("2020-10-30")}}).then(result => {
           let newMonthsArray= new Array();
           let monthwise = new Array();
           let monthsArray = ['January','February','March','April','May','June','July','August','September','October', 'November','December'];
